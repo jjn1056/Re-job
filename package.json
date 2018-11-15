@@ -1,0 +1,11 @@
+{
+  "name": "Rejob",
+  "version": "1.0.0",
+  "main": "app.js",
+  "author": "Dmitry/Vincent",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "nodemon": "^1.18.6"
+  }
+}

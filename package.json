@@ -6,6 +6,7 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.16.4",
+    "mariasql": "^0.2.6",
     "nodemon": "^1.18.6"
   }
 }

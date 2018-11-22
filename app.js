@@ -4,6 +4,10 @@ const port = 3000;
 require('dotenv').config();
 var Client = require('mariasql');
 
+// Setting up view engine
+app.set('view engine', 'pug');
+app.use(express.static("public"));
+
 var connection = new Client({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -18,6 +22,10 @@ connection.query('SHOW DATABASES', function (err, rows) {
 
 connection.end();
 
-app.get('/', (req, res) => res.send('Hello World!'));
+// home page 
+app.get('/', function (req, res) {
+    res.render('home', {
+    });
+});
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

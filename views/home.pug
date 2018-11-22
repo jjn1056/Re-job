@@ -1,47 +1,49 @@
-head  
-  link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500")
-  link(href="/css/style.css" rel="stylesheet" type="text/css")
+head
+    link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500")
+    link(href="/css/style.css" rel="stylesheet" type="text/css")
 
-
-a(href="/game")
-  h1(id="title") Re-job
+div(class="header")
+    a(href="/home")
+        h1(id="title") Re-job
 
 div(class="sign_log_part")
-  div(id="page_left")
-    form(method="post" action="/sign-up" novalidate)
-      div(class="form-header")
-        h2 Please, register a new account.
-      div(class="form-field")
-        input(class="input" name="username_sign" type="text" placeholder="Username" required)
-      div(class="form-field")
-        input(class="input" name="email_sign" type="text" placeholder="Email" required)
-      div(class="form-field")
-        input(class="input" name="password_sign" type="password" placeholder="Password" required)
-      div(class="form-actions")
-        button(class="btn" type="submit") Sign up
-      div(id="error")
-        if error_signup
-          p= error_signup
+    div(id="page_left")
+        form(method="post" action="/sign-up" novalidate)
+            div(class="form-header")
+                h2 Add a resume.
+            div(class="form-field")
+                input(class="input" name="name" type="text" placeholder="Full Name" required)
+            div(class="form-field")
+                input(class="input" name="email" type="text" placeholder="Email" required)
+            div(class="form-field")
+                textarea(class="input-area" name="education" type="text" placeholder="Education" rows="8" required)
+            div(class="form-field")
+                textarea(class="input-area" name="experience" type="text" placeholder="Experience" rows="8" required)
+            div(class="form-field")
+                textarea(class="input-area" name="skills" type="text" placeholder="Skills" rows="8" required)
+            div(class="form-actions")
+                button(class="btn" type="submit") Add
+            div(id="error")
+                if error_signup
+                    p= error_signup
 
-  div(id="vertical-line-home")
+    div(id="vertical-line-home")
 
-  div(id="page_right")
-    form(method="post" action="/login" novalidate)
-      div(class="form-header")
-        h2 Log in.
-      div(class="form-field")
-        input(class="input" name="email_log" type="text" placeholder="Email" required)
-      div(class="form-field")
-        input(class="input" name="password_log" type="password" placeholder="Password" required)
-      div(class="form-actions")
-        button(class="btn" type="submit") Log in
-      div(id="error")
-        if error_login
-          p= error_login
+    div(id="page_right")
+        form(method="post" action="/login" novalidate)
+            div(class="form-header")
+                h2 Add a job description.
+            div(class="form-field")
+                input(class="input" name="name" type="text" placeholder="Job Name" required)
+            div(class="form-actions")
+                button(class="btn" type="submit") Add
+            div(id="error")
+                if error_login
+                    p= error_login
 
 div(class="resume-job-board")
-  h2 Scoreboard
-    ul
-      each val in [1, 2, 3, 4, 5]
-        li= "Player " + val
-        br
+    h2 Resumes-Jobs Board
+        ul
+            each val in [1, 2, 3, 4, 5]
+                li= "Test " + val
+                br

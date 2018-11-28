@@ -22,7 +22,7 @@ body {
     border-bottom: 3px solid black;
 }
 
-.sign_log_part {
+.resume-job-part {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -66,12 +66,21 @@ form {
 }
 
 .form-field {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
     padding: 10px;
 }
 
-.input {
+.input-label {
+    padding: 0px 5px 10px 5px;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.input, .input-drop-down {
     width: 100%;
     margin-bottom: 5px;
     padding: 10px;
@@ -108,5 +117,16 @@ form {
 }
 
 .resume-job-board {
-    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: whitesmoke;
+    border-top: 3px solid black;
+}
+
+.resume-job-list {
+    width: auto;
+    font-size: 14px;
+    font-weight: 500;
 }

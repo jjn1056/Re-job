@@ -6,9 +6,9 @@ div(class="header")
     a(href="/home")
         h1(id="title") Re-job
 
-div(class="sign_log_part")
+div(class="resume-job-part")
     div(id="page_left")
-        form(method="post" action="/sign-up" novalidate)
+        form(method="post" action="/resume" novalidate)
             div(class="form-header")
                 h2 Add a resume.
             div(class="form-field")
@@ -16,10 +16,17 @@ div(class="sign_log_part")
             div(class="form-field")
                 input(class="input" name="email" type="text" placeholder="Email" required)
             div(class="form-field")
-                textarea(class="input-area" name="education" type="text" placeholder="Education" rows="8" required)
+                label(class="input-label") Highest degree earned 
+                select(class="input-drop-down" name='resumeEdDropDown', id='')
+                    each edLevel in Education
+                        option=edLevel
             div(class="form-field")
-                textarea(class="input-area" name="experience" type="text" placeholder="Experience" rows="8" required)
+                label(class="input-label") Years of experience 
+                select(class="input-drop-down" name='resumeExpDropDown', id='')
+                    each expLevel in Experience
+                        option=expLevel
             div(class="form-field")
+                label(class="input-label") List all skills divided by commas
                 textarea(class="input-area" name="skills" type="text" placeholder="Skills" rows="8" required)
             div(class="form-actions")
                 button(class="btn" type="submit") Add
@@ -30,7 +37,7 @@ div(class="sign_log_part")
     div(id="vertical-line-home")
 
     div(id="page_right")
-        form(method="post" action="/login" novalidate)
+        form(method="post" action="/job" novalidate)
             div(class="form-header")
                 h2 Add a job description.
             div(class="form-field")
@@ -43,7 +50,7 @@ div(class="sign_log_part")
 
 div(class="resume-job-board")
     h2 Resumes-Jobs Board
-        ul
-            each val in [1, 2, 3, 4, 5]
-                li= "Test " + val
-                br
+    ul(class="resume-job-list")
+        each val in [1, 2, 3, 4, 5]
+            li= "Test " + val
+            br

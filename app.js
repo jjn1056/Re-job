@@ -25,6 +25,21 @@ connection.end();
 // home page 
 app.get('/', function (req, res) {
     res.render('home', {
+        "Education": [
+            "Highschool Diploma",
+            "Associate's degree",
+            "Bachelor's degree",
+            "Master's degree",
+            "Doctoral degree"
+        ],
+        "Experience": [
+            " > 0",
+            "0 - 1",
+            "1 - 3",
+            "3 - 5",
+            "5 - 10",
+            "10 > "
+        ],
     });
 });
 

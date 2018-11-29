@@ -1,10 +1,11 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const bodyParser = require('body-parser');
+const pdf2Text = require('pdf2text');
 const app = express();
 const port = 3000;
+const Client = require('mariasql');
 require('dotenv').config();
-var Client = require('mariasql');
 
 app.set('view engine', 'pug');
 app.use(express.static("public"));
@@ -38,8 +39,15 @@ app.post('/resume', function(req, res) {
     if (name === "" || email === "" || !(resumeFile)) {
         res.render('index', {error_resume: "Fill out all the fields and choose .pdf file."});
     } else {
-
+        pdf2Text(resumeFile.data).then(function(chunks, err) {
+            var resumeString = chunks.join("");
+            console.log(resumeString);
+        });
     }
+
+    res.render('index', {
+
+    });
 });
 
 app.post('/job', function(req, res) {

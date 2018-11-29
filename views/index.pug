@@ -1,0 +1,55 @@
+head
+    link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500")
+    link(href="/css/style.css" rel="stylesheet" type="text/css")
+
+div(class="page")
+
+    div(class="header")
+        a(href="/")
+            h1(id="title") Re-job
+
+    
+    div(class="page-blue")
+        form(method="post" action="/resume" encType="multipart/form-data" novalidate)
+            div(class="form-header")
+                h2 Add a resume.
+            div(class="form-field")
+                input(class="input" name="reName" type="text" placeholder="Full Name" required)
+            div(class="form-field")
+                input(class="input" name="reEmail" type="text" placeholder="Email" required)
+            div(class="form-field")
+                input(class="input" type="file" name="resumeFile" required)
+            div(class="form-actions")
+                button(class="btn" type="submit") Add
+            div(id="error")
+                if error_resume
+                    p= error_resume
+
+    div(class="page-green")
+        form(method="post" action="/job" encType="multipart/form-data" novalidate)
+            div(class="form-header")
+                h2 Add a job.
+            div(class="form-field")
+                input(class="input" name="jobName" type="text" placeholder="Job Name" required)
+            div(class="form-field")
+                input(class="input" name="jobEmail" type="text" placeholder="Email" required)
+            div(class="form-field")
+                input(class="input" type="file" name="jobFile" required)
+            div(class="form-actions")
+                button(class="btn" type="submit") Add
+            div(id="error")
+                if error_job
+                    p= error_job
+
+    div(class="page-blue")
+        form(method="post" action="/re-match" novalidate)
+            div(class="form-actions")
+                    button(class="btn" type="submit") Re-Match
+
+
+div(class="resume-job-board")
+    h2 Resumes-Jobs Board
+    ul(class="resume-job-list")
+        each val in [1, 2, 3, 4, 5]
+            li= "Test " + val
+            br

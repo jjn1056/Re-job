@@ -1,12 +1,15 @@
 const express = require('express');
+const fileUpload = require('express-fileupload');
+const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
 require('dotenv').config();
 var Client = require('mariasql');
 
-// Setting up view engine
 app.set('view engine', 'pug');
 app.use(express.static("public"));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(fileUpload());
 
 var connection = new Client({
     host: process.env.DB_HOST,
@@ -22,24 +25,38 @@ connection.query('SHOW DATABASES', function (err, rows) {
 
 connection.end();
 
-// home page 
 app.get('/', function (req, res) {
-    res.render('home', {
-        "Education": [
-            "Highschool Diploma",
-            "Associate's degree",
-            "Bachelor's degree",
-            "Master's degree",
-            "Doctoral degree"
-        ],
-        "Experience": [
-            " > 0",
-            "0 - 1",
-            "1 - 3",
-            "3 - 5",
-            "5 - 10",
-            "10 > "
-        ],
+    res.render('index', {
+    });
+});
+
+app.post('/resume', function(req, res) {
+    let name = req.body.reName;
+    let email = req.body.reEmail;
+    let resumeFile = req.files.resumeFile;
+
+    if (name === "" || email === "" || !(resumeFile)) {
+        res.render('index', {error_resume: "Fill out all the fields and choose .pdf file."});
+    } else {
+
+    }
+});
+
+app.post('/job', function(req, res) {
+    let name = req.body.jobName;
+    let email = req.body.jobEmail;
+    let jobFile = req.files.jobFile;
+
+    if (name === "" || email === "" || !(jobFile)) {
+        res.render('index', {error_job: "Fill out all the fields and choose .pdf file."});
+    } else {
+
+    }
+});
+
+app.post('/re-match', function(req, res) {
+    res.render('index', {
+
     });
 });
 

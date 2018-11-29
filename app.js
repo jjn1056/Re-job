@@ -24,8 +24,6 @@ connection.query('SHOW DATABASES', function (err, rows) {
     console.dir(rows);
 });
 
-connection.end();
-
 app.get('/', function (req, res) {
     res.render('index', {
     });
@@ -45,9 +43,11 @@ app.post('/resume', function(req, res) {
             error_resume: "Only .pdf files are supported."});
     } else {
         pdf2Text(resumeFile.data).then(function(chunks, err) {
-            var resumeString = chunks.join("");
+            var resumeString = chunks[0].join(' ');
             console.log(resumeString);
         });
+
+        // Insert SQL
     }
 
     res.render('index', {
@@ -62,9 +62,22 @@ app.post('/job', function(req, res) {
 
     if (name === "" || email === "" || !(jobFile)) {
         res.render('index', {error_job: "Fill out all the fields and choose .pdf file."});
+    } else if (!(/\.(pdf|pdf)$/i).test(jobFile.name)) {
+        // Modify regex if new file2text modules added
+        res.render('index', {
+            error_job: "Only .pdf files are supported."});
     } else {
+        pdf2Text(jobFile.data).then(function(chunks, err) {
+            var jobString = chunks[0].join(' ');
+            console.log(jobString);
+        });
 
+        // Insert SQL
     }
+
+    res.render('index', {
+
+    });    
 });
 
 app.post('/re-match', function(req, res) {
@@ -72,5 +85,7 @@ app.post('/re-match', function(req, res) {
 
     });
 });
+
+connection.end();
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

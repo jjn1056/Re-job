@@ -37,7 +37,12 @@ app.post('/resume', function(req, res) {
     let resumeFile = req.files.resumeFile;
 
     if (name === "" || email === "" || !(resumeFile)) {
-        res.render('index', {error_resume: "Fill out all the fields and choose .pdf file."});
+        res.render('index', {
+            error_resume: "Fill out all the fields and choose .pdf file."});
+    } else if (!(/\.(pdf|pdf)$/i).test(resumeFile.name)) {
+        // Modify regex if new file2text modules added
+        res.render('index', {
+            error_resume: "Only .pdf files are supported."});
     } else {
         pdf2Text(resumeFile.data).then(function(chunks, err) {
             var resumeString = chunks.join("");

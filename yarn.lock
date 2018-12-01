@@ -150,6 +150,11 @@ atob@^2.1.1:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
+atonic@^1.x.x:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/atonic/-/atonic-1.0.4.tgz#7db3f216070abb68660f18122a380903e09d27c7"
+  integrity sha1-fbPyFgcKu2hmDxgSKjgJA+CdJ8c=
+
 babel-runtime@^6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"
@@ -421,6 +426,13 @@ concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
   integrity sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
+
+concepts-parser@^1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/concepts-parser/-/concepts-parser-1.5.2.tgz#eedf1e7bc1fdfd44843191e9404899c45a731af8"
+  integrity sha512-1G6NNw2YZIzinS/VCyDngf7O1i1vJG7BnwF0UEFhlc2IMv0GzmxB+lq8iKolSKUhj3QzFlKtFot7iJtC1i8HeA==
+  dependencies:
+    atonic "^1.x.x"
 
 configstore@^3.0.0:
   version "3.1.2"

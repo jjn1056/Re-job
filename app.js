@@ -5,6 +5,7 @@ const pdf2Text = require('pdf2text');
 const app = express();
 const port = 3000;
 const Client = require('mariasql');
+const parser = require('concepts-parser');
 require('dotenv').config();
 
 app.set('view engine', 'pug');
@@ -44,10 +45,24 @@ app.post('/resume', function(req, res) {
     } else {
         pdf2Text(resumeFile.data).then(function(chunks, err) {
             var resumeString = chunks[0].join(' ');
-            console.log(resumeString);
+
+            const concepts = parser.parse({ text: resumeString, lang: 'en' }, { mode: 'collect', filters: ['duplicate', 'invalid', 'partial', 'abbr', 'known']});
+
+            console.log(concepts);
+            var resume = [];
+            for (var id in concepts) {
+                console.log(concepts[id]);
+                if (concepts[id]._fields.endsWithNumber !== true) {
+                    resume.push(concepts[id]._fields.value)
+                }
+            }
+
+            console.log(resume);
         });
 
         // Insert SQL
+
+        
     }
 
     res.render('index', {

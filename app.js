@@ -6,6 +6,7 @@ const app = express();
 const port = 3000;
 const Client = require('mariasql');
 const parser = require('concepts-parser');
+const fs = require('fs');
 require('dotenv').config();
 
 app.set('view engine', 'pug');
@@ -19,10 +20,17 @@ var connection = new Client({
     password: process.env.DB_PASS
 });
 
-connection.query('SHOW DATABASES', function (err, rows) {
-    if (err)
-        throw err;
-    console.dir(rows);
+fs.readFile('./sql/re-job.sql', 'utf8', function(err, data) {  
+    if (err) throw err;
+    var sql = data.replace(/\r?\n|\r/g, " ").split(';');
+    // console.log(sql);
+
+    for (var i = 0; i < sql.length - 1; i++) {
+        connection.query(sql[i], function (err, rows) {
+            if (err)
+                throw err;
+        });
+    }
 });
 
 app.get('/', function (req, res) {

@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `jobs` (
 
 CREATE TABLE IF NOT EXISTS `entities_resume` (
   `user_email` varchar(100) NOT NULL,
-  `job_chunk` varchar(100) NOT NULL,
+  `resume_chunk` varchar(100) NOT NULL,
   KEY `resume_user_fk` (`user_email`),
   CONSTRAINT `resume_user_fk` FOREIGN KEY (`user_email`) REFERENCES `user` (`user_email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -153,8 +153,10 @@ app.post('/job', function (req, res) {
 });
 
 app.post('/re-match', function (req, res) {
+        //Match algorithm
+
     res.render('index', {
-        // Match algorithm(?)
+        // Match Board Update
     });
 });
 

@@ -28,9 +28,9 @@ fs.readFile('./sql/re-job.sql', 'utf8', function (err, data) {
             return element.length != 0
         })
         .map((element) => {
-        if (element.length != 0)
-            return element.replace(/\r?\n|\r/g, " ");
-    });
+            if (element.length != 0)
+                return element.replace(/\r?\n|\r/g, " ");
+        });
 
     for (var iterator in sql) {
         connection.query(sql[iterator], function (err, rows) {
@@ -74,9 +74,32 @@ app.post('/resume', function (req, res) {
             }
 
             console.log(resume);
-        });
+        //});
 
         // Insert SQL
+
+        connection.connect(function (err) {
+            if (err) throw err;
+            console.log("Connected!");
+            var sql = "INSERT INTO user (user_email, user_name) VALUES ('"+email+"', '"+name+"')";
+            connection.query(sql,function (err,result) {
+                if (err) throw err;
+                console.log("record inserted");
+            });
+        });
+
+        connection.connect(function (err) {
+            if (err) throw err;
+            console.log("Connected!");
+            for (var i = 0; i < resume.length; ++i) {
+                var sql = "INSERT INTO entities_resume (user_email, job_chunk) VALUES ('"+email+"', ?)";
+                connection.query(sql, [i],function (err,result) {
+                    if (err) throw err;
+                    console.log(i, "th record inserted");
+                });
+            }
+        });
+        });
 
 
     }

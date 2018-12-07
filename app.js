@@ -205,29 +205,21 @@ app.post('/re-match', function (req, res) {
                     parallel_done();
                 });
         },
-
-        function (parallel_done) {
-            console.log("resume-outside: ", resume);
-            console.log("job-outside: ", job);
-
-
-            var test = similar.getBestSubstring("iterator,2425325,4543,53", "iteratar,876842,534,4534");
-            console.log(test.accuracy);
-            //console.log(similar.getBestSubstring("iterator", "iterator"));
-
-
-            for (var iterator in resume) {
-                for (var iterator_2 in job) {
-                    //console.log(resume[iterator], job[iterator_2]);
-                    //result.push(similar.getBestSubString(resume[iterator], job[iterator_2]));
-                    console.log(similar.getBestSubstring("iterator", "iterator"));
-                }
-            }
-
-            console.log(result);
-        },
-    ], function (err) {
+    ], function (err, results) {
         if (err) console.log(err);
+        console.log("resume-outside: ", resume);
+        console.log("job-outside: ", job);
+
+        var test = similar.getBestSubstring("iterator,2425325,4543,53", "iteratar,876842,534,4534");
+        console.log(test.accuracy);
+
+        for (var iterator in resume) {
+            for (var iterator_2 in job) {
+                console.log(similar.getBestSubstring("iterator", "iterator"));
+            }
+        }
+
+        console.log(result);        
         connection.end();
         res.send();
     });

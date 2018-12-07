@@ -7,6 +7,7 @@ const port = 3000;
 const Client = require('mariasql');
 const parser = require('concepts-parser');
 const fs = require('fs');
+const { SimilarSearch } = require('node-nlp');
 require('dotenv').config();
 
 app.set('view engine', 'pug');
@@ -72,10 +73,11 @@ app.post('/resume', function (req, res) {
                 }
             }
 
-            connection.query('insert into user (user_email, user_name) values (?, ?)',
+            connection.query('insert ignore into user (user_email, user_name) values (?, ?)',
                 [email, name], (err, rows) => {
                     if (err) throw err;
             });
+
 
             connection.query('delete from entities_resume where user_email = ?',
                 [email], (err, rows) => {
@@ -153,6 +155,70 @@ app.post('/job', function (req, res) {
 });
 
 app.post('/re-match', function (req, res) {
+    let user_emails = [];
+    let organization_email = [];
+    const similar = new SimilarSearch();
+    var resume = [];
+    var job = [];
+    var result = [];
+
+    // Resume
+    connection.query('select user_email from user',
+    null, { useArray: true } , (err, rows) => {
+        if (err) throw err;
+        for (var i = 0; i < rows.length; ++i) {
+            //console.log(i, rows[i]);
+            user_emails.push(rows[i]);
+        }
+        for (var iterator in user_emails){
+            connection.query('select resume_chunk from entities_resume where user_email=?',
+            [user_emails[iterator]], { useArray: true } , (err, rows) => {
+                if (err) throw err; 
+                resume.push(rows.toString());
+                console.log("resume: ",resume);
+                callback(err, done);
+            });
+        }
+    });
+
+    // Job
+    connection.query('select organization_email from organization',
+    null, { useArray: true } , (err, rows) => {
+        if (err) throw err;
+        for (var i = 0; i < rows.length; ++i) {
+            //console.log(i, rows[i]);
+            organization_email.push(rows[i]);
+        }
+        for (var iterator in organization_email){
+            connection.query('select job_chunk from entities_job where organization_email=?',
+            [organization_email[iterator]], { useArray: true } , (err, rows) => {
+                if (err) throw err; 
+                job.push(rows.toString());
+                console.log("job: ",job);
+                callback(err, done);
+            });
+        }
+    });
+
+    console.log("resume-outside: ",resume);
+    console.log("job-outside: ",job);
+
+
+    var test = similar.getBestSubstring("iterator,2425325,4543,53", "iteratar,876842,534,4534");
+    console.log(test.accuracy);
+    //console.log(similar.getBestSubstring("iterator", "iterator"));
+
+
+    for (var iterator in resume) {
+        for (var iterator_2 in job) {
+            //console.log(resume[iterator], job[iterator_2]);
+            //result.push(similar.getBestSubString(resume[iterator], job[iterator_2]));
+            console.log(similar.getBestSubstring("iterator", "iterator"));
+        }
+    }
+
+    console.log(result);
+    
     res.render('index', {
         // Match algorithm(?)
     });
